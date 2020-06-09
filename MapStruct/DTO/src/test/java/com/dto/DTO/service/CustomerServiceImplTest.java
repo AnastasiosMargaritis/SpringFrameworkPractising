@@ -14,7 +14,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 
 class CustomerServiceImplTest {
 
@@ -60,5 +62,62 @@ class CustomerServiceImplTest {
 
         //then
         assertEquals("Margaritis", customerDTO.getLastName());
+    }
+
+    @Test
+    void createNewCustomer() {
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName("Anastasios");
+
+        Customer savedCustomer = new Customer();
+        savedCustomer.setLastName(customerDTO.getLastName());
+        savedCustomer.setFirstName(customerDTO.getFirstName());
+        savedCustomer.setId(customerDTO.getId());
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+
+        //when
+        CustomerDTO customerDTO1 = customerService.createNewCustomer(customerDTO);
+
+        //then
+        assertEquals(customerDTO.getFirstName(), customerDTO1.getFirstName());
+
+    }
+
+    @Test
+    void updateCustomer() {
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setId(1L);
+        customerDTO.setFirstName("Anastasios");
+        customerDTO.setLastName("Margaritis");
+
+        Customer savedCustomer = new Customer();
+        savedCustomer.setId(customerDTO.getId());
+        savedCustomer.setFirstName(customerDTO.getFirstName());
+        savedCustomer.setLastName(customerDTO.getLastName());
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+
+        //when
+        CustomerDTO customerDTO1 = customerService.createNewCustomer(customerDTO);
+        customerDTO1.setLastName("Molozis");
+        customerDTO1.setFirstName("Apostolos");
+        customerService.updateCustomer(customerDTO1.getId(), customerDTO1);
+
+        //then
+        assertEquals("Molozis", customerDTO1.getLastName());
+        assertEquals("Apostolos", customerDTO1.getFirstName());
+    }
+
+    @Test
+    void deleteCustomerById() {
+
+        Long id = 1L;
+
+        customerRepository.deleteById(id);
+
+        verify(customerRepository, times(1)).deleteById(id);
     }
 }
