@@ -1,6 +1,6 @@
 package com.security.service;
 
-import com.security.UserRepository;
+import com.security.repository.UserRepository;
 import com.security.domain.User;
 import com.security.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

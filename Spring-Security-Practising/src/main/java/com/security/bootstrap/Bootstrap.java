@@ -1,6 +1,6 @@
 package com.security.bootstrap;
 
-import com.security.UserRepository;
+import com.security.repository.UserRepository;
 import com.security.domain.Role;
 import com.security.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
