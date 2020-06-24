@@ -9,7 +9,6 @@ import security.jwt.domain.AuthenticationRequest;
 import security.jwt.util.JwtUtil;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     @Autowired
