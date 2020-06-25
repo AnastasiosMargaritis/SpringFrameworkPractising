@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login.service';
+import {NgForm} from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-login',
@@ -8,28 +11,56 @@ import { LoginService } from '../service/login.service';
 })
 export class LoginComponent implements OnInit {
 
+  username: string;
+  password: string;
+
   authRequest:any={
     "username" : "AnthiMl",
     "password" : "1234"
   };
 
   response:any;
+  isError = false;
+  errorMessage: string;
 
   constructor(private service: LoginService) { }
 
   ngOnInit() {
-    this.getAccessToken(this.authRequest);
+
   }
 
   public getAccessToken(authRequest){
-    let resp=this.service.generateToken(authRequest);
-    resp.subscribe(data=>this.accessApi(data));
+    this.service.generateToken(authRequest).subscribe(
+      data=>{
+        this.accessApi(data)
+      }, error => {
+        this.isError = true;
+        this.errorMessage = error.message;
+      });
   }
 
 
   public accessApi(token){
-    let resp=this.service.welcome(token);
-    resp.subscribe(data=>this.response=data);
+  this.service.welcome(token).subscribe(data => {
+      console.log(data);
+    }, error => {
+      this.isError = true;
+      this.errorMessage = error.message;
+
+    });
+  }
+
+  public onLogin(form: NgForm){
+    const value = form.value;
+    this.username = value.username;
+    this.password = value.password;
+
+    this.authRequest = {
+      "username" : this.username,
+      "password" : this.password
+    };
+
+    this.getAccessToken(this.authRequest);
   }
 
 }
