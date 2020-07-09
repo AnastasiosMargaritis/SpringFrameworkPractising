@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+export class Headers{
+  constructor(
+    private headers: HttpHeaders
+  ){}
+}
 
 @Injectable({
   providedIn: 'root'
