@@ -25,6 +25,7 @@ public class UserService {
         Account account = new Account();
         account.setIban(account.generateIBAN());
         account.setCurrencies(this.currencyRepository.findAll());
+        account.initializeAccount(account.getCurrencies());
         this.accountRepository.save(account);
 
         user.setAccount(account);

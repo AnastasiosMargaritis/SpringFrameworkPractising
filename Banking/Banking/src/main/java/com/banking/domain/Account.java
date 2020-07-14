@@ -66,4 +66,11 @@ public class Account {
 
        return sb.toString();
     }
+
+    public void initializeAccount(List<Currencies> currencies){
+
+        for(Currencies c: currencies){
+            this.money.put(c.getCurrency(), 0d);
+        }
+    }
 }
