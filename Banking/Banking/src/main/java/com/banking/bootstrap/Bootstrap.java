@@ -8,10 +8,12 @@ import com.banking.repository.CurrencyRepository;
 import com.banking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+@Component
 public class Bootstrap implements CommandLineRunner {
 
     @Autowired
@@ -26,7 +28,7 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Set<Currencies> currencies = new HashSet<>();
+        List<Currencies> currencies = new ArrayList<>();
 
         Currencies dollar = new Currencies();
         dollar.setId(1L);
@@ -62,7 +64,7 @@ public class Bootstrap implements CommandLineRunner {
         this.currencyRepository.saveAll(currencies);
 
 
-
+        //USERS CREATION
         User user = new User();
         user.setId(1L);
         user.setUsername("AnasMarg");
@@ -72,23 +74,57 @@ public class Bootstrap implements CommandLineRunner {
         user1.setId(2L);
         user1.setUsername("AnthiMl");
         user1.setPassword("1881");
+        //
 
-        this.userRepository.save(user);
-        this.userRepository.save(user1);
 
+        //ACCOUNTS CREATION
         Account account = new Account();
         account.setId(1L);
         account.setIban("SE35 5000 0000 0549 1000 0003");
-        account.setUser(user);
-        account.setCurrencies(currencies);
+        account.getCurrencies().add(dollar);
+        account.getCurrencies().add(euro);
+        account.getCurrencies().add(chf);
+        account.getCurrencies().add(gbp);
+        account.getCurrencies().add(cad);
 
         Account account1 = new Account();
         account1.setId(2L);
-        account1.setIban("CH93 0076 2011 6238 5295 7\n");
-        account1.setUser(user1);
-        account1.setCurrencies(currencies);
+        account1.setIban("CH93 0076 2011 6238 5295");
+        account1.getCurrencies().add(dollar);
+        account1.getCurrencies().add(euro);
+        account1.getCurrencies().add(chf);
+        account1.getCurrencies().add(gbp);
+        account1.getCurrencies().add(cad);
 
         this.accountRepository.save(account);
         this.accountRepository.save(account1);
+
+        dollar.getAccount().add(account);
+        dollar.getAccount().add(account1);
+
+        euro.getAccount().add(account);
+        euro.getAccount().add(account1);
+
+        chf.getAccount().add(account);
+        chf.getAccount().add(account1);
+
+        gbp.getAccount().add(account);
+        gbp.getAccount().add(account1);
+
+        cad.getAccount().add(account);
+        cad.getAccount().add(account1);
+
+        currencies.add(dollar);
+        currencies.add(euro);
+        currencies.add(chf);
+        currencies.add(gbp);
+        currencies.add(cad);
+        this.currencyRepository.saveAll(currencies);
+
+
+        user.setAccount(account);
+        user1.setAccount(account1);
+        this.userRepository.save(user);
+        this.userRepository.save(user1);
     }
 }
