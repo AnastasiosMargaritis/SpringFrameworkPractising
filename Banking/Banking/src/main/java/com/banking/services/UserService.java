@@ -1,9 +1,6 @@
 package com.banking.services;
 
-import com.banking.domain.Account;
 import com.banking.domain.User;
-import com.banking.repository.AccountRepository;
-import com.banking.repository.CurrencyRepository;
 import com.banking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,24 +12,14 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
-    private CurrencyRepository currencyRepository;
+    private AccountService account;
 
     public User newUser(User user){
 
-        Account account = new Account();
-        account.setIban(account.generateIBAN());
-        account.setCurrencies(this.currencyRepository.findAll());
-        account.initializeAccount(account.getCurrencies());
-        this.accountRepository.save(account);
-
-        user.setAccount(account);
+        user.setAccount(this.account.createDefaultAccount());
 
         return this.userRepository.save(user);
     }
-
 
 
     public void deleteUser(User user){
