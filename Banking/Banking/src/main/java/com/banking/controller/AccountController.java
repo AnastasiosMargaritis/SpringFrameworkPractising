@@ -24,4 +24,10 @@ public class AccountController {
     public Account deposit(@PathVariable Long id, @RequestBody Money money){
         return this.accountService.deposit(id, money);
     }
+
+    @PutMapping
+    @RequestMapping("/enable/{id}")
+    public Account enableCurrency(@PathVariable Long id, @RequestParam String currency){
+        return this.accountService.activateCurrency(id, currency);
+    }
 }
