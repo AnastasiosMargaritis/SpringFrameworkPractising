@@ -121,6 +121,13 @@ public class Bootstrap implements CommandLineRunner {
         currencies.add(cad);
         this.currencyRepository.saveAll(currencies);
 
+        for(Currencies c: currencies){
+            account.getMoney().put(c.getCurrency(), 0d);
+            account1.getMoney().put(c.getCurrency(), 0d);
+        }
+
+        this.accountRepository.save(account);
+        this.accountRepository.save(account1);
 
         user.setAccount(account);
         user1.setAccount(account1);
