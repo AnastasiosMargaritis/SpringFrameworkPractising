@@ -32,7 +32,14 @@ public class AccountService {
     }
 
     public Account deposit(Long id, Money money){
-        return this.accountRepository.findAccountByUserId(id);
+        Account account = this.accountRepository.findAccountByUserId(id);
+
+        if (!account.getActivatedCurrencies().get(money.getCurrency())) {
+            account.getActivatedCurrencies().put(money.getCurrency(), true);
+        }
+        account.getMoney().put(money.getCurrency(), account.getMoney().get(money.getCurrency()) + money.getAmount());
+
+        return this.accountRepository.save(account);
     }
 
     public Account activateCurrency(Long id, String currency){
