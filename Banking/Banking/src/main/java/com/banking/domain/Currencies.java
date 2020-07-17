@@ -33,6 +33,4 @@ public class Currencies{
     @JsonIgnore
     private List<Account> account = new ArrayList<>();
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean enabled;
 }

@@ -28,6 +28,8 @@ public class Account {
 
     private HashMap<String, Double> money = new HashMap<>();
 
+    private HashMap<String, Boolean> activatedCurrencies = new HashMap<>();
+
     @ManyToMany
     private List<Currencies> currencies = new ArrayList<>();
 
@@ -63,7 +65,6 @@ public class Account {
 
             }
         }
-
        return sb.toString();
     }
 
@@ -71,6 +72,7 @@ public class Account {
 
         for(Currencies c: currencies){
             this.money.put(c.getCurrency(), 0d);
+            this.activatedCurrencies.put(c.getCurrency(), false);
         }
     }
 }

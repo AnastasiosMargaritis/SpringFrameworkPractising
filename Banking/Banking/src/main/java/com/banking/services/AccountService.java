@@ -32,23 +32,13 @@ public class AccountService {
     }
 
     public Account deposit(Long id, Money money){
-
-        Account account = this.accountRepository.findAccountByUserId(id);
-
-        if(account.getMoney().containsKey(money.getCurrency()) && this.currenciesServices.getCurrencyByCurrency(money.getCurrency()).isEnabled()){
-            account.getMoney().put(money.getCurrency(), account.getMoney().get(money.getCurrency()) + money.getAmount());
-        }else{
-            throw new RuntimeException("The currency you are trying to deposit is not enabled in your account. " +
-                    "Please enable this currency into your account first.");
-        }
-
-        return this.accountRepository.save(account);
+        return this.accountRepository.findAccountByUserId(id);
     }
 
     public Account activateCurrency(Long id, String currency){
         Account account = this.accountRepository.findAccountByUserId(id);
 
-        this.currenciesServices.activateCurrency(this.currenciesServices.getCurrencyByCurrency(currency).getId());
+        account.getActivatedCurrencies().put(currency, true);
 
         return this.accountRepository.save(account);
     }

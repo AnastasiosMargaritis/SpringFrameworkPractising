@@ -39,7 +39,6 @@ public class Bootstrap implements CommandLineRunner {
         euro.setId(2L);
         euro.setCurrency("EUR");
         euro.setRate(1d);
-        euro.setEnabled(true);
 
         Currencies chf = new Currencies();
         chf.setId(3L);
@@ -124,6 +123,9 @@ public class Bootstrap implements CommandLineRunner {
         for(Currencies c: currencies){
             account.getMoney().put(c.getCurrency(), 0d);
             account1.getMoney().put(c.getCurrency(), 0d);
+
+            account.getActivatedCurrencies().put(c.getCurrency(), false);
+            account1.getActivatedCurrencies().put(c.getCurrency(), false);
         }
 
         this.accountRepository.save(account);
