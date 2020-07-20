@@ -7,4 +7,5 @@ import lombok.Data;
 public class Currencies {
     private String code;
     private String name;
+    private String symbol;
 }
