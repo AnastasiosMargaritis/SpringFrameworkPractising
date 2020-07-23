@@ -26,12 +26,4 @@ public class AccountService {
     public Account getUsersAccount(Long id){
         return this.accountRepository.findAccountByUserId(id);
     }
-
-//    public Account deposit(Long id, Money money){
-//
-//    }
-//
-//    public Account activateCurrency(Long id, String currency){
-//
-//    }
 }

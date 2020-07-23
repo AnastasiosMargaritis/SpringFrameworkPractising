@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Component
 public class Money {
-
     private String currency;
     private Double amount;
 }
