@@ -3,7 +3,10 @@ package com.banking.bootstrap;
 import com.banking.domain.APIPOJORetrieve;
 import com.banking.domain.Country;
 import com.banking.domain.CurrencyConverter;
+import com.banking.domain.User;
 import com.banking.repository.CountriesCurrenciesRepository;
+import com.banking.repository.UserRepository;
+import com.banking.services.AccountService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,13 +15,21 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class Bootstrap implements CommandLineRunner {
 
     @Autowired
     private CountriesCurrenciesRepository countriesCurrenciesRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AccountService accountService;
 
 
     @Override
@@ -49,7 +60,33 @@ public class Bootstrap implements CommandLineRunner {
         }
 
         CurrencyConverter currencyConverter = new CurrencyConverter("EUR", "USD", 11.70);
-        currencyConverter.sendPost();
+//        currencyConverter.sendPost();
 
+
+        Set<User> users = new HashSet<>();
+
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("AnasMarg");
+        user.setPassword("1234");
+        user.setAccount(this.accountService.createDefaultAccount());
+
+        User user1 = new User();
+        user1.setId(2L);
+        user1.setUsername("AnthiMolozi");
+        user1.setPassword("2434");
+        user1.setAccount(this.accountService.createDefaultAccount());
+
+        User user2 = new User();
+        user2.setId(3L);
+        user2.setUsername("ElMargar");
+        user2.setPassword("2323");
+        user2.setAccount(this.accountService.createDefaultAccount());
+
+        users.add(user);
+        users.add(user1);
+        users.add(user2);
+
+        this.userRepository.saveAll(users);
     }
 }
