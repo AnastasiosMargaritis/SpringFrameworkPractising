@@ -2,7 +2,6 @@ package com.banking.bootstrap;
 
 import com.banking.domain.APIPOJORetrieve;
 import com.banking.domain.Country;
-import com.banking.domain.CurrencyConverter;
 import com.banking.domain.User;
 import com.banking.repository.CountriesCurrenciesRepository;
 import com.banking.repository.UserRepository;
@@ -59,7 +58,7 @@ public class Bootstrap implements CommandLineRunner {
             this.countriesCurrenciesRepository.save(apipojoRetrieve);
         }
 
-        CurrencyConverter currencyConverter = new CurrencyConverter("EUR", "USD", 11.70);
+//        CurrencyConverter currencyConverter = new CurrencyConverter("EUR", "USD", 11.70);
 //        currencyConverter.sendPost();
 
 

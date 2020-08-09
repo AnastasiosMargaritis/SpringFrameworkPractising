@@ -20,15 +20,14 @@ public class CurrencyConverter {
     private Double amount;
 
 
-    public void sendPost() throws Exception {
+    public Double sendPost() throws Exception {
         HttpResponse<JsonNode> response = Unirest.get("https://currency13.p.rapidapi.com/convert/" + this.amount.toString() + "/" + this.from + "/" + this.to)
                 .header("x-rapidapi-host", "currency13.p.rapidapi.com")
                 .header("x-rapidapi-key", "ccc2904157msh55e154cca8d15f4p1badefjsnc16f791973c6")
                 .asJson();
 
         JSONObject jsObject = response.getBody().getObject();
-        System.out.println(jsObject.get("amount"));
-
+        return jsObject.getDouble("amount");
     }
 
 }

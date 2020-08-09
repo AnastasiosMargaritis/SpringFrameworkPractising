@@ -1,6 +1,7 @@
 package com.banking.services;
 
 import com.banking.domain.Account;
+import com.banking.domain.CurrencyConverter;
 import com.banking.domain.Money;
 import com.banking.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,14 @@ public class AccountService {
             (this.getUsersAccount(id)).getMoney().put(money.getCurrency(),
                     this.getUsersAccount(id).getMoney().get(money.getCurrency()) - money.getAmount());
         }
+
+        return this.accountRepository.save(this.getUsersAccount(id));
+    }
+
+    public Account exchange(Long id, CurrencyConverter currencyConverter) throws Exception {
+        this.getUsersAccount(id).getMoney().put(currencyConverter.getTo(),
+                    this.getUsersAccount(id).getMoney().get(currencyConverter.getFrom())*currencyConverter.sendPost() +
+                    this.getUsersAccount(id).getMoney().get(currencyConverter.getTo()));
 
         return this.accountRepository.save(this.getUsersAccount(id));
     }
