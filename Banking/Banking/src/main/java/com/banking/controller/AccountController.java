@@ -6,8 +6,6 @@ import com.banking.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -21,14 +19,10 @@ public class AccountController {
         return this.accountService.deposit(money, id);
     }
 
-    @GetMapping
-    @RequestMapping("/{id}")
-    public Account getAccountById(@PathVariable Long id){
-        return this.accountService.getUsersAccount(id);
+    @PostMapping
+    @RequestMapping("/withdraw/{id}")
+    public Account withdraw(@PathVariable Long id, @RequestBody Money money){
+        return this.accountService.withdraw(id, money);
     }
-
-    @GetMapping
-    public List<Account> getAllAccounts(){
-       return this.accountService.getAllAccounts();
-    }
+    
 }
