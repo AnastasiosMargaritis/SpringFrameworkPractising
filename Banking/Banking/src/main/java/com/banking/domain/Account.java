@@ -48,8 +48,4 @@ public class Account {
         }
         return iban;
     }
-
-    public void initializeAccount(){
-
-    }
 }
