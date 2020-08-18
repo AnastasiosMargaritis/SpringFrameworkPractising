@@ -1,33 +1,39 @@
 package user.web.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import user.domain.Country;
 import user.domain.User;
 import user.repositories.CountryRepository;
+import user.repositories.UserRepository;
 import user.services.country.CountryService;
+import user.web.model.CountryDto;
 import user.web.model.UserDto;
 
 public abstract class UserMapperDecorator implements UserMapper {
 
-    private CountryService service;
-    private UserMapper mapper;
+    private CountryService countryService;
+    private UserMapper userMapper;
     private CountryMapper countryMapper;
-    private CountryRepository repository;
-
+    private CountryRepository countryRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public void setRepository(CountryRepository repository) {
-        this.repository = repository;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Autowired
-    public void setService(CountryService service) {
-        this.service = service;
+    public void setCountryService(CountryService countryService) {
+        this.countryService = countryService;
     }
 
     @Autowired
-    public void setMapper(UserMapper mapper) {
-        this.mapper = mapper;
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    @Autowired
+    public void setCountryRepository(CountryRepository countryRepository) {
+        this.countryRepository = countryRepository;
     }
 
     @Autowired
@@ -37,24 +43,34 @@ public abstract class UserMapperDecorator implements UserMapper {
 
     @Override
     public UserDto userToUserDto(User user, String code) {
-        UserDto userDto = mapper.userToUserDto(user, code);
 
-        userDto.setCountry(service.getCountryByCode(code));
+        CountryDto country = countryService.getCountryByCode(code);
 
+        if(countryRepository.findById(country.getId()) == null){
+            countryRepository.save(countryMapper.countryDtoToCounty(country));
+        }
+
+        UserDto userDto = userToUserDto(user, code);
+        userDto.setCountry(country);
+
+        if(userRepository.findById(userDto.getId()) == null){
+            userRepository.save(user);
+        }
         return userDto;
     }
 
     @Override
     public User userDtoToUser(UserDto userDto, String code) {
-        User user = mapper.userDtoToUser(userDto, code);
 
-        Country country = countryMapper.countryDtoToCounty(service.getCountryByCode(code));
+        CountryDto countryDto = countryService.getCountryByCode(code);
 
-        repository.save(country);
+        if(countryRepository.findById(countryDto.getId()) == null){
+            countryRepository.save(countryMapper.countryDtoToCounty(countryDto));
+        }
 
-        user.setCountry(country);
+        User user = userMapper.userDtoToUser(userDto, code);
+        user.setCountry(countryMapper.countryDtoToCounty(countryDto));
 
         return user;
-
     }
 }
