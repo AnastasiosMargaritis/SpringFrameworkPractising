@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import user.domain.Country;
 import user.web.model.CountryDto;
 
-@Mapper(uses = {UserMapper.class})
+@Mapper
 public interface CountryMapper {
 
     Country countryDtoToCounty(CountryDto countryDto);
