@@ -1,6 +1,7 @@
 package user.web.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import user.domain.Country;
 import user.domain.User;
 import user.repositories.CountryRepository;
 import user.services.country.CountryService;
@@ -38,19 +39,30 @@ public abstract class UserMapperDecorator implements UserMapper {
     @Override
     public UserDto userToUserDto(User user) {
         UserDto dto = userMapper.userToUserDto(user);
+
         CountryDto country = countryService.getCountryByCode(user.getCountryCode());
 
         if(repository.findByName(country.getName()) == null){
             repository.save(countryMapper.countryDtoToCounty(country));
         }
-
+        
         dto.setCountry(country);
-        country.getUsers().add(dto);
+
         return  dto;
     }
 
     @Override
     public User userDtoToUser(UserDto userDto) {
+
+        User user = userMapper.userDtoToUser(userDto);
+
+        Country country = countryMapper.countryDtoToCounty(countryService.getCountryByCode(userDto.getCountryCode()));
+
+        if(repository.findByName(country.getName()) == null){
+            repository.save(country);
+        }
+
+        user.setCountry(country);
 
         return userMapper.userDtoToUser(userDto);
     }

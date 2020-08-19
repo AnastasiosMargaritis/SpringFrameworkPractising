@@ -2,7 +2,10 @@ package user.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import user.domain.User;
 import user.repositories.UserRepository;
+import user.services.country.CountryService;
+import user.web.mappers.CountryMapper;
 import user.web.mappers.UserMapper;
 import user.web.model.UserDto;
 
@@ -12,6 +15,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper mapper;
+    private final CountryMapper countryMapper;
+    private final CountryService countryService;
 
     @Override
     public UserDto getUserByUsername(String username) {
@@ -20,7 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createNewUser(UserDto userDto) {
-        return mapper.userToUserDto(userRepository.save(mapper.userDtoToUser(userDto)));
+        User user = mapper.userDtoToUser(userDto);
+
+        return mapper.userToUserDto(userRepository.save(user));
     }
 
     @Override

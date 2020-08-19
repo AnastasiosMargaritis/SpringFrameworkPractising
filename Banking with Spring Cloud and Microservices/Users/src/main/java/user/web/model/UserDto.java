@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -44,6 +43,6 @@ public class UserDto implements Serializable {
     @Size(min = 2, max = 3)
     private String countryCode;
 
-    @Null
+    @NotNull
     private CountryDto country;
 }

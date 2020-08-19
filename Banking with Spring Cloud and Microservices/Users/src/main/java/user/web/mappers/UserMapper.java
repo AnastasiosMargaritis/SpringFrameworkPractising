@@ -8,6 +8,7 @@ import user.web.model.UserDto;
 @Mapper
 @DecoratedWith(UserMapperDecorator.class)
 public interface UserMapper {
+
     User userDtoToUser(UserDto userDto);
 
     UserDto userToUserDto(User user);
