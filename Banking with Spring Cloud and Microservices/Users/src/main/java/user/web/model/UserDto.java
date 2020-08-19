@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -19,7 +21,8 @@ public class UserDto implements Serializable {
 
     static final long serialVersionUID = -5815566940065181210L;
 
-    @Null
+    @Id
+    @NotNull
     private Long id;
 
     @NotBlank
@@ -36,6 +39,10 @@ public class UserDto implements Serializable {
     @NotBlank
     @Size(min = 10, max = 10)
     private String mobileNumber;
+
+    @NotBlank
+    @Size(min = 2, max = 3)
+    private String countryCode;
 
     @Null
     private CountryDto country;

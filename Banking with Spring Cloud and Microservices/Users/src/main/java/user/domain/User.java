@@ -1,5 +1,6 @@
 package user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,9 @@ public class User {
     private String password;
     private String address;
     private String mobileNumber;
+    private String countryCode;
 
     @ManyToOne
+    @JsonIgnore
     private Country country;
 }

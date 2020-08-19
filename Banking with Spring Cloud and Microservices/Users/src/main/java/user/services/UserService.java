@@ -4,7 +4,9 @@ import user.web.model.UserDto;
 
 public interface UserService {
 
-    UserDto createNewUser(UserDto userDto, String countryName);
+    UserDto getUserByUsername(String username);
+
+    UserDto createNewUser(UserDto userDto);
 
     void deleteUserById(Long id);
 }

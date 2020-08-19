@@ -14,8 +14,13 @@ public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
 
     @Override
-    public UserDto createNewUser(UserDto userDto, String countryCode) {
-        return mapper.userToUserDto(mapper.userDtoToUser(userDto, countryCode),countryCode);
+    public UserDto getUserByUsername(String username) {
+        return mapper.userToUserDto(userRepository.findByUsername(username));
+    }
+
+    @Override
+    public UserDto createNewUser(UserDto userDto) {
+        return mapper.userToUserDto(userRepository.save(mapper.userDtoToUser(userDto)));
     }
 
     @Override

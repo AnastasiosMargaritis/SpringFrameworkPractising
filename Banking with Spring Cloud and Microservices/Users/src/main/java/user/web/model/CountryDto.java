@@ -1,5 +1,6 @@
 package user.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,9 +18,6 @@ import java.util.List;
 public class CountryDto implements Serializable {
 
     static final long serialVersionUID = -5815566940065181210L;
-
-
-    private Long id;
 
     @NotBlank
     private String name;
@@ -35,5 +34,7 @@ public class CountryDto implements Serializable {
     @NotBlank
     private String currencyName;
 
-    private List<UserDto> users;
+    @JsonIgnore
+    private List<UserDto> users = new ArrayList<>();
+
 }
