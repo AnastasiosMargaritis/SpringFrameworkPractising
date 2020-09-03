@@ -31,7 +31,16 @@ public class Bootstrap implements CommandLineRunner {
         country.setCurrencyName("Euro");
         country.setName("Greece");
 
+        Country country1 = new Country();
+        country1.setId(2L);
+        country1.setAlpha2Code("AF");
+        country1.setAlpha3Code("AFG");
+        country1.setCurrencyCode("AFN");
+        country1.setCurrencyName("Afghan afghani");
+        country1.setName("Afghanistan");
+
         this.countryRepository.save(country);
+        this.countryRepository.save(country1);
 
         List<User> users = new ArrayList<>();
 
@@ -59,9 +68,18 @@ public class Bootstrap implements CommandLineRunner {
         user2.setAddress("Taxiarhon 24, Nea Kerasia");
         user2.setCountry(country);
 
+        User user3 = new User();
+        user3.setId(4L);
+        user3.setUsername("ManasToMni");
+        user3.setPassword("9873");
+        user3.setMobileNumber("6944357944");
+        user3.setAddress("Opou ston diaolo 8elw");
+        user3.setCountry(country1);
+
         users.add(user);
         users.add(user1);
         users.add(user2);
+        users.add(user3);
 
         this.userRepository.saveAll(users);
 
