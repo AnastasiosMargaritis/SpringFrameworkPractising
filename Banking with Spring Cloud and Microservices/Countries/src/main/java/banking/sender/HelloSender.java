@@ -2,6 +2,7 @@ package banking.sender;
 
 import banking.confg.JsmConfig;
 import banking.domain.JmsMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,10 +15,10 @@ import java.util.UUID;
 public class HelloSender {
 
     private final JmsTemplate jmsTemplate;
+    private final ObjectMapper mapper;
 
     @Scheduled(fixedRate = 2000) // 2 seconds
     public void sendMessage(){
-        System.out.println("Sending message.");
         JmsMessage message = JmsMessage
                 .builder()
                 .id(UUID.randomUUID())
@@ -25,6 +26,6 @@ public class HelloSender {
                 .build();
 
         jmsTemplate.convertAndSend(JsmConfig.MY_QUEUE, message);
-        System.out.println("Message Sent!");
     }
+
 }
