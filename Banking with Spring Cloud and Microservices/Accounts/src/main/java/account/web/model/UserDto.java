@@ -1,6 +1,9 @@
-package user.web.model;
+package account.web.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -9,8 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -42,8 +44,5 @@ public class UserDto implements Serializable {
     private String countryCode;
 
     @NotNull
-    private CountryDto country;
-
-    @NotNull
-    private AccountDto accountDto;
+    private AccountDto account;
 }

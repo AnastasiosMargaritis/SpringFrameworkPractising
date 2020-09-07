@@ -1,12 +1,12 @@
 package user.services;
 
-import user.web.model.UserDto;
+import user.domain.User;
 
 public interface UserService {
 
-    UserDto getUserByUsername(String username);
+    User getUserByUsername(String username);
 
-    UserDto createNewUser(UserDto userDto);
+    User createNewUser(User user);
 
     void deleteUserById(Long id);
 }

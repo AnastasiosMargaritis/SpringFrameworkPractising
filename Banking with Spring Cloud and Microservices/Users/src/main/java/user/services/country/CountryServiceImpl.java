@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import user.web.model.CountryDto;
+import user.domain.Country;
 
 @ConfigurationProperties(prefix = "sfg.banking", ignoreUnknownFields = false)
 @Service
@@ -24,9 +24,9 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public CountryDto getCountryByCode(String code) {
+    public Country getCountryByCode(String code) {
         return restTemplate.getForObject(
-                countryServiceHost + COUNTRY_PATH + code, CountryDto.class
+                countryServiceHost + COUNTRY_PATH + code, Country.class
         );
     }
 }

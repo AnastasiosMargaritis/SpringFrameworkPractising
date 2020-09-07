@@ -1,15 +1,13 @@
-package user.domain;
+package account.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -23,9 +21,6 @@ public class User {
     private String address;
     private String mobileNumber;
     private String countryCode;
-
-    @ManyToOne
-    private Country country;
 
     @OneToOne
     private Account account;

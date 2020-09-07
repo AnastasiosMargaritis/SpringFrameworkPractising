@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import user.domain.Country;
 import user.domain.User;
+import user.repositories.AccountRepository;
 import user.repositories.CountryRepository;
 import user.repositories.UserRepository;
 
@@ -18,6 +19,7 @@ public class Bootstrap implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final CountryRepository countryRepository;
+    private final AccountRepository accountRepository;
 
 
     @Override
@@ -42,6 +44,7 @@ public class Bootstrap implements CommandLineRunner {
         this.countryRepository.save(country);
         this.countryRepository.save(country1);
 
+
         List<User> users = new ArrayList<>();
 
         User user = new User();
@@ -51,6 +54,8 @@ public class Bootstrap implements CommandLineRunner {
         user.setMobileNumber("6982131395");
         user.setAddress("Taxiarhon 24, Nea Kerasia");
         user.setCountry(country);
+        user.setCountryCode(country.getAlpha3Code());
+
 
         User user1 = new User();
         user1.setId(2L);
@@ -59,6 +64,7 @@ public class Bootstrap implements CommandLineRunner {
         user1.setMobileNumber("6984999092");
         user1.setAddress("Taxiarhon 24, Nea Kerasia");
         user1.setCountry(country);
+        user1.setCountryCode(country.getAlpha3Code());
 
         User user2 = new User();
         user2.setId(3L);
@@ -67,6 +73,7 @@ public class Bootstrap implements CommandLineRunner {
         user2.setMobileNumber("6984990621");
         user2.setAddress("Taxiarhon 24, Nea Kerasia");
         user2.setCountry(country);
+        user2.setCountryCode(country.getAlpha3Code());
 
         User user3 = new User();
         user3.setId(4L);
@@ -75,6 +82,7 @@ public class Bootstrap implements CommandLineRunner {
         user3.setMobileNumber("6944357944");
         user3.setAddress("Opou ston diaolo 8elw");
         user3.setCountry(country1);
+        user3.setCountryCode(country1.getAlpha3Code());
 
         users.add(user);
         users.add(user1);

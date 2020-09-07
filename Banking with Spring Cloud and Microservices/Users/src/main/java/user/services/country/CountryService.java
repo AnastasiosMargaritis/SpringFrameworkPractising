@@ -1,8 +1,8 @@
 package user.services.country;
 
-import user.web.model.CountryDto;
+import user.domain.Country;
 
 public interface CountryService {
 
-    CountryDto getCountryByCode(String code);
+    Country getCountryByCode(String code);
 }
