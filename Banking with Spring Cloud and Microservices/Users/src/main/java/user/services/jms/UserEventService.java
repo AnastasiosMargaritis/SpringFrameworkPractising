@@ -18,17 +18,6 @@ public class UserEventService {
 
 //    @Scheduled(fixedRate = 5000)//every 5 seconds
 //    public void checkForUsersCountry(){
-//
-//        List<User> users = userRepository.findAll();
-//
-//        users.forEach(user -> {
-//            String countryName = countryService.getCountryByCode(user.getCountryCode()).getName();
-//
-//            log.debug("Country name: " + countryName);
-//
-//            if(countryName.equals("Greece")){
-//                jmsTemplate.convertAndSend(JsmConfig.MY_QUEUE, new CountryUserEvent(mapper.userToUserDto(user)));
-//            }
-//        });
+
 //    }
 }

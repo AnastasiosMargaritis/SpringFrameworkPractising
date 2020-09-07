@@ -1,6 +1,6 @@
-package user.events;
+package account.events;
 
-import user.domain.User;
+import account.domain.User;
 
 public class AccountUserEvent extends UserEvent{
 
