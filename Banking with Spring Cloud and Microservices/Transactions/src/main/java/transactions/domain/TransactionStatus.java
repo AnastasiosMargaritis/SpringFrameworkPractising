@@ -1,5 +1,5 @@
 package transactions.domain;
 
 public enum TransactionStatus {
-    NEW, WITHDRAW, DEPOSIT, DELETE, UPDATE
+    NEW, WITHDRAW, DEPOSIT, DELETE, UPDATE, FINISHED
 }
