@@ -10,7 +10,9 @@ import ssm.domain.Payment;
 import ssm.domain.PaymentEvent;
 import ssm.domain.PaymentState;
 import ssm.repository.PaymentRepository;
-import sun.plugin2.message.Message;
+import org.springframework.messaging.Message;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +20,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final StateMachineFactory<PaymentState, PaymentEvent> state;
+    private final PaymentStateChangeListener listener;
 
     public static final String PAYMENT_ID_HEADER = "payment_id";
 
@@ -27,6 +30,7 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository.save(payment);
     }
 
+    @Transactional
     @Override
     public StateMachine<PaymentState, PaymentEvent> preAuth(Long paymentId) {
 
@@ -34,24 +38,27 @@ public class PaymentServiceImpl implements PaymentService {
 
         sendEvent(paymentId, sm, PaymentEvent.PRE_AUTHORIZE);
 
-        return null;
+        return sm;
     }
 
+    @Transactional
     @Override
     public StateMachine<PaymentState, PaymentEvent> authorizePayment(Long paymentId) {
         StateMachine<PaymentState, PaymentEvent> sm = build(paymentId);
 
-        sendEvent(paymentId, sm, PaymentEvent.AUTH_APPROVED);
-        return null;
+        sendEvent(paymentId, sm, PaymentEvent.AUTHORIZE);
+
+        return sm;
     }
 
+    @Transactional
     @Override
     public StateMachine<PaymentState, PaymentEvent> declineAuth(Long paymentId) {
         StateMachine<PaymentState, PaymentEvent> sm = build(paymentId);
 
         sendEvent(paymentId, sm, PaymentEvent.AUTH_DECLINED);
 
-        return null;
+        return sm;
     }
 
     private void sendEvent(Long paymentId, StateMachine<PaymentState, PaymentEvent> sm, PaymentEvent event){
@@ -60,7 +67,7 @@ public class PaymentServiceImpl implements PaymentService {
                         .setHeader(PAYMENT_ID_HEADER, paymentId)
                         .build();
 
-        sm.sendEvent((org.springframework.messaging.Message<PaymentEvent>) msm);
+        sm.sendEvent(msm);
     }
 
     private StateMachine<PaymentState, PaymentEvent> build(Long paymentId){
@@ -72,6 +79,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         sm.getStateMachineAccessor()
                 .doWithAllRegions(sma -> {
+                    sma.addStateMachineInterceptor(listener);
                     sma.resetStateMachine(new DefaultStateMachineContext<>(payment.getState(), null, null, null));
                 });
 

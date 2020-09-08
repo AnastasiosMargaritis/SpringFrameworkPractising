@@ -29,8 +29,8 @@ public class UserEventsListener {
 
         dto.setAccount(user.getAccount());
 
-        NewAccountEvent accountEvent = new NewAccountEvent(user);
+//        NewAccountEvent accountEvent = new NewAccountEvent(user);
 
-        jmsTemplate.convertAndSend(JsmConfig.NEW_ACCOUNT_EVENT, accountEvent);
+//        jmsTemplate.convertAndSend(JsmConfig.NEW_ACCOUNT_EVENT, accountEvent);
     }
 }
