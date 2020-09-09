@@ -11,6 +11,9 @@ public class JsmConfig {
 
     public static final String MY_QUEUE = "country-event";
     public static final String NEW_ACCOUNT_EVENT = "account-event";
+    public static final String VALIDATE_TRANSACTION_QUEUE = "validate-transaction";
+    public static final String VALIDATE_TRANSACTION_RESPONSE_QUEUE = "validate-response-transaction";
+
 
     @Bean
     public MessageConverter messageConverter(){

@@ -10,6 +10,7 @@ import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class AccountDto implements Serializable {
 
     @Id
     @NotNull
-    private Long id;
+    private UUID id;
 
     @NotNull
     private String iban;

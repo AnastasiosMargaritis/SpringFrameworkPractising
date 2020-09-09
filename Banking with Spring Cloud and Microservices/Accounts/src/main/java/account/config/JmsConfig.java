@@ -10,6 +10,7 @@ import org.springframework.jms.support.converter.MessageType;
 public class JmsConfig {
 
     public static final String NEW_ACCOUNT_EVENT = "account-event";
+    public static final String VALIDATE_TRANSACTION_QUEUE = "validate-transaction";
 
     @Bean
     public MessageConverter messageConverter(){

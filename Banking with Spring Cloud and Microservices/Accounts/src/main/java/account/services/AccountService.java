@@ -1,10 +1,12 @@
 package account.services;
 
-import account.web.model.AccountDto;
-import account.web.model.UserDto;
+import account.domain.Account;
+import account.domain.User;
+
+import java.util.UUID;
 
 public interface AccountService {
 
-    AccountDto generateNewAccount(UserDto userDto);
-    AccountDto findAccountByUser(Long id);
+    Account generateNewAccount(User userDto);
+    Account findAccountByUser(UUID id);
 }

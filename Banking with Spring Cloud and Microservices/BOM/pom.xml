@@ -38,12 +38,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.mapstruct</groupId>
-				<artifactId>mapstruct</artifactId>
-				<scope>provided</scope>
-				<version>${org.mapstruct.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>4.0.1</version>

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -16,7 +17,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     private String iban;
 

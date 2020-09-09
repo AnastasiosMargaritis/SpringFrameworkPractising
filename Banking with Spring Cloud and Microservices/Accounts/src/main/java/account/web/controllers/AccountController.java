@@ -1,8 +1,8 @@
 package account.web.controllers;
 
+import account.domain.Account;
+import account.domain.User;
 import account.services.AccountService;
-import account.web.model.AccountDto;
-import account.web.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class AccountController {
 
     @PostMapping
     @RequestMapping("new")
-    public ResponseEntity<AccountDto> createNewAccount(@RequestBody @Validated UserDto userDto){
+    public ResponseEntity<Account> createNewAccount(@RequestBody @Validated User userDto){
         return new ResponseEntity<>(accountService.generateNewAccount(userDto), HttpStatus.CREATED);
     }
 }
