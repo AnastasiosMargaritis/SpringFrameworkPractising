@@ -1,7 +1,12 @@
 package Shop.Customer.bootstrap;
 
 import Shop.Customer.domain.Customer;
+import Shop.Customer.domain.Drink;
 import Shop.Customer.repository.CustomerRepository;
+import Shop.Customer.repository.DrinkRepository;
+import Shop.Customer.service.bar.BarService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,6 +21,15 @@ public class Bootstrap implements CommandLineRunner {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private BarService barService;
+
+    @Autowired
+    private DrinkRepository drinkRepository;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @Override
     public void run(String... args) throws Exception {
@@ -47,6 +61,14 @@ public class Bootstrap implements CommandLineRunner {
         customers.add(customer1);
         customers.add(customer2);
 
+        List<Drink> drinks = mapper.convertValue(
+                barService.getAllDrinks(),
+                new TypeReference<List<Drink>>() {
+                }
+        );
+
+
+        drinkRepository.saveAll(drinks);
         customerRepository.saveAll(customers);
     }
 }

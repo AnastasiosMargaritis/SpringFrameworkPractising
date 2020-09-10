@@ -20,7 +20,7 @@ public class BarServiceImpl implements BarService {
         Drink drink = drinkRepository.findByType(drinkType);
 
         if(drink.getQuantity() < 1){
-            return new BigDecimal("Out of Stock!!");
+            drinkService.refill(drink.getId());
         }else {
             drink.setQuantity(drink.getQuantity() - 1);
         }

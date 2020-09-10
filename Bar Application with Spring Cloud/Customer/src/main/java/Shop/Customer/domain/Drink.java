@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -16,11 +17,13 @@ import java.math.BigDecimal;
 public class Drink {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    private UUID id;
 
     private String type;
 
     private BigDecimal price;
+
+    private Integer quantity;
 
 }

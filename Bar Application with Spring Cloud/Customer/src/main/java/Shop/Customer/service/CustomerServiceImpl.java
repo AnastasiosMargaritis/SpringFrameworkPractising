@@ -3,7 +3,7 @@ package Shop.Customer.service;
 import Shop.Customer.domain.Customer;
 import Shop.Customer.domain.Order;
 import Shop.Customer.repository.CustomerRepository;
-import Shop.Customer.service.order.BarService;
+import Shop.Customer.service.bar.BarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

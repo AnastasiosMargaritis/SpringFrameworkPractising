@@ -1,17 +1,20 @@
-package Shop.Customer.service.order;
+package Shop.Customer.service.bar;
 
+import Shop.Customer.domain.Drink;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
 @Service
 public class BarServiceImpl implements BarService {
 
     private final String BAR_PATH = "/bar/order/";
+    private final String DRINK_PATH = "/bar/drinks";
     private final RestTemplate restTemplate;
 
     private String barServiceHost;
@@ -27,8 +30,14 @@ public class BarServiceImpl implements BarService {
     @Override
     public BigDecimal order(String drinkType) {
 
-        System.out.println(barServiceHost + BAR_PATH + drinkType);
         return restTemplate.getForObject(
                 barServiceHost + BAR_PATH + drinkType, BigDecimal.class);
+    }
+
+    @Override
+    public List<Drink> getAllDrinks() {
+        return restTemplate.getForObject(
+                barServiceHost + DRINK_PATH, List.class
+        );
     }
 }

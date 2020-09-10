@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class Bootstrap implements CommandLineRunner {
         barRepository.save(bar);
 
         Drink drink = new Drink().builder()
-                        .id(1L)
+                        .id(UUID.randomUUID())
                         .type(DrinkType.BEER.toString())
                         .price(new BigDecimal("3.99"))
                         .quantity(100)
@@ -36,7 +37,7 @@ public class Bootstrap implements CommandLineRunner {
                         .build();
 
         Drink drink1 = new Drink().builder()
-                        .id(2L)
+                        .id(UUID.randomUUID())
                         .type(DrinkType.VODKA.toString())
                         .price(new BigDecimal("7.99"))
                         .quantity(10)
@@ -44,7 +45,7 @@ public class Bootstrap implements CommandLineRunner {
                         .build();
 
         Drink drink2 = new Drink().builder()
-                        .id(3L)
+                        .id(UUID.randomUUID())
                         .type(DrinkType.WHISKEY.toString())
                         .price(new BigDecimal("8.99"))
                         .quantity(12)
@@ -52,7 +53,7 @@ public class Bootstrap implements CommandLineRunner {
                         .build();
 
         Drink drink3 = new Drink().builder()
-                        .id(4L)
+                        .id(UUID.randomUUID())
                         .type(DrinkType.WINE.toString())
                         .price(new BigDecimal("5.99"))
                         .quantity(100)
