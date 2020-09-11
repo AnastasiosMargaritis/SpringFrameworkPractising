@@ -19,6 +19,9 @@ public class BarServiceImpl implements BarService {
 
         Drink drink = drinkRepository.findByType(drinkType);
 
+        System.out.println(drinkType);
+        System.out.println(drink);
+
         if(drink.getQuantity() < 1){
             drinkService.refill(drink.getId());
         }else {

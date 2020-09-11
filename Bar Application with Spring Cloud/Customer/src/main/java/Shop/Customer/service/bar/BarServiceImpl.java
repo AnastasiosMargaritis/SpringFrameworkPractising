@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class BarServiceImpl implements BarService {
 
-    public static final String BAR_PATH = "/bar/order/";
+    public static final String BAR_PATH = "/bar/order/{drinkType}";
     public static final String DRINK_PATH = "/bar/drinks";
     private final RestTemplate restTemplate;
 
@@ -33,7 +33,7 @@ public class BarServiceImpl implements BarService {
     public BigDecimal order(String drinkType) {
 
         return restTemplate.getForObject(
-                barServiceHost + BAR_PATH + drinkType, BigDecimal.class);
+                barServiceHost + BAR_PATH , BigDecimal.class);
     }
 
     @Override
