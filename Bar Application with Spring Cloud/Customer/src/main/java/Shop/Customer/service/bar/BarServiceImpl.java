@@ -1,6 +1,7 @@
 package Shop.Customer.service.bar;
 
 import Shop.Customer.domain.Drink;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Profile;
@@ -21,8 +22,12 @@ public class BarServiceImpl implements BarService {
 
     private String barServiceHost;
 
-    public BarServiceImpl(RestTemplateBuilder restTemplate) {
-        this.restTemplate = restTemplate.build();
+    public BarServiceImpl(RestTemplateBuilder restTemplate,
+                          @Value("${sfg.brewery.bar-user}")String barUser,
+                          @Value("${sfg.brewery.bar-password}")String barPassword) {
+        this.restTemplate = restTemplate
+                .basicAuthentication(barUser, barPassword)
+                            .build();
     }
 
     public void setBarServiceHost(String barServiceHost) {
