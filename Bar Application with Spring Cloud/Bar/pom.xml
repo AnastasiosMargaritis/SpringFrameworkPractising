@@ -6,7 +6,8 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
+
 	</parent>
 	<groupId>Shop</groupId>
 	<artifactId>Bar</artifactId>
@@ -116,6 +117,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>bar-mcss</finalName>
+
 	</build>
 
 </project>
