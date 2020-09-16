@@ -8,11 +8,11 @@
 		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>World</groupId>
-	<artifactId>world</artifactId>
+	<groupId>Hello.Rest</groupId>
+	<artifactId>Hello-Rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>world</name>
-	<description>World project nie nei nei</description>
+	<name>World</name>
+	<description>Hello Rest for Docker Image</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -21,7 +21,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
@@ -44,6 +44,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>world-mssc</finalName>
 	</build>
 
 </project>
