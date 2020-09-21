@@ -6,51 +6,51 @@ services:
        - 9411:9411
 
   eureka:
-    image: eureka-mssc
+    image: 160218120/eureka-mssc
     ports:
        - 8761:8761
 
   bar-service:
-    image: bar-mssc
+    image: 160218120/bar-mssc
     ports:
         - 8081:8081
     depends_on:
       - eureka
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@192.168.99.101:8761/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
       SPRING_PROFILES_ACTIVE: local-discovery
-      SPIRNG_ZIPKIN_BASEURL: http://192.168.99.101:9411
+      SPIRNG_ZIPKIN_BASEURL: http://zipkin:9411
     restart: on-failure
 
   order-failover:
-    image: failover-mssc
+    image: 160218120/failover-mssc
     ports:
        - 8082:8082
     depends_on:
       - eureka
       - bar-service
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@192.168.99.101:8761/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
       SPRING_PROFILES_ACTIVE: local-discovery
-      SPIRNG_ZIPKIN_BASEURL: http://192.168.99.101:9411
+      SPIRNG_ZIPKIN_BASEURL: http://zipkin:9411
     restart: on-failure
 
   customer-service:
-    image: customer-mssc
+    image: 160218120/customer-mssc
     ports:
       - 8080:8080
     depends_on:
       - eureka
       - bar-service
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@192.168.99.101:8761/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
       SPRING_PROFILES_ACTIVE: local-discovery
-      SPIRNG_ZIPKIN_BASEURL: http://192.168.99.101:9411
-      SFG_BREWERY_BAR-SERVICE-HOST: http://192.168.99.101:8081
+      SPIRNG_ZIPKIN_BASEURL: http://zipkin:9411
+      SFG_BREWERY_BAR-SERVICE-HOST: http://bar-service:8081
     restart: on-failure
 
   gateway-service:
-    image: gateway-mssc
+    image: 160218120/gateway-mssc
     ports:
       - 9090:9090
     depends_on:
@@ -59,6 +59,6 @@ services:
       - bar-service
       - customer-service
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@192.168.99.101:8761/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka
       SPRING_PROFILES_ACTIVE: local-discovery
     restart: on-failure
